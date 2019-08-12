@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import getData from './services/frontierApiService';
+import AccountList from './Components/AccountList'
 
 class App extends Component {
 
@@ -18,6 +19,11 @@ class App extends Component {
   }
 
   render() {
+    let accounts = this.state.accounts;
+    let activeAccounts = accounts.filter(account => account["AccountStatusId"] === 0);
+    let inactiveAccounts = accounts.filter(account => account["AccountStatusId"] === 1);
+    let overdueAccounts = accounts.filter(account => account["AccountStatusId"] === 2);
+
     return (
       <article class="grid">
       <header class="grid">
@@ -29,52 +35,32 @@ class App extends Component {
         <div class="content-title-container">
           <h2>Accounts</h2>
         </div>
-        <section class="grid" id="account-grid">
-          <section class="account-column grid" id="active-account-column">
+        <div class="grid" id="account-grid">
+          <div class="account-column grid" id="active-account-column">
             <div class="account-container-title" id="active-account-container-title">
               <h3>Active</h3>
             </div>
-            <div class="account-container active-account">
-              <ul class="account-data-list">
-                {this.state.accounts[0] ? console.log(this.state.accounts[0]["FirstName"]) : ""}
-
-                {/* <li><label>Name:</label>{{LastName}}, {{FirstName}}</li>
-                <li><label>Email:</label>{{Email}}</li>
-                <li><label>Phone Number:</label>{{PhoneNumber}}</li>
-                <li><label>Amount Due:</label>{{AmountDue}}</li>
-                <li><label>Due Date:</label>{{DueDate}}</li> */}
-              </ul>
+            <div className="account-container active-account">
+              {activeAccounts ? <AccountList accounts={activeAccounts}/> : "" }  
             </div>     
-          </section>
-          <section class="account-column grid" id="overdue-account-column">
+          </div>
+          <div class="account-column grid" id="overdue-account-column">
             <div class="account-container-title" id="overdue-account-container-title">
               <h3>Overdue</h3>
             </div>
             <div class="account-container overdue-account">
-              <ul class="account-data-list">
-                {/* <li><label>Name:</label>{{LastName}}, {{FirstName}}</li>
-                <li><label>Email:</label>{{Email}}</li>
-                <li><label>Phone Number:</label>{{PhoneNumber}}</li>
-                <li><label>Amount Due:</label>{{AmountDue}}</li>
-                <li><label>Due Date:</label>{{DueDate}}</li> */}
-              </ul>
+              { overdueAccounts ? <AccountList accounts={overdueAccounts}/> : "" }  
             </div>
-          </section>
+          </div>
           <div class="account-column grid" id="inactive-account-column">
             <div class="account-container-title" id="inactive-account-container-title">
               <h3>Inactive</h3>
             </div>
             <div class="account-container inactive-account">
-              <ul class="account-data-list">
-                {/* <li><label>Name:</label>{{LastName}}, {{FirstName}}</li>
-                <li><label>Email:</label>{{Email}}</li>
-                <li><label>Phone Number:</label>{{PhoneNumber}}</li>
-                <li><label>Amount Due:</label>{{AmountDue}}</li>
-                <li><label>Due Date:</label>{{DueDate}}</li> */}
-              </ul>
+              { inactiveAccounts ? <AccountList accounts={inactiveAccounts}/> : "" } 
             </div>
           </div>
-        </section>
+        </div>
       </main>
       <footer class="grid">
         <p class="copy">&copy;<script>document.write(new Date().getFullYear())</script></p>

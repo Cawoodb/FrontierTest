@@ -72,23 +72,24 @@ footer {
 }
 .account-container {
   justify-self: center;
-  height: 5em;
+  height: 200px;
+  margin-top: 20px;
+  overflow: auto;
 }
 .account-container-title {
   justify-self: center;
 }
-.account-data-list {
-  list-style: none;
-}
-.account-data-list > li {
-  margin: 10px 0;
-}
-.account-data-list > li > label {
+.account-prop > label {
   font-weight: bold;
   margin: 0 5px 0 0;
 }
+
 .copy {
   place-self: end;
   grid-row-start: 2;
   grid-column-start: 2;
+}
+
+.account {
+  margin-top: 10px;
 }
